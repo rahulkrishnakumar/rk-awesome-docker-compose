@@ -1,0 +1,20 @@
+name: app-prod
+services:
+  api:
+    container_name: app-api-prod
+    restart: unless-stopped
+    build:
+      context: ./app
+      target: prod
+      dockerfile: Dockerfile
+    env_file:
+      - ./app/.env.production
+    ports:
+      #HOST_PORT:CONTAINER_PORT
+      - "4002:4002"
+    networks:
+      - backend_app_prod
+
+networks:
+  backend_app_prod:
+    name: backend_app_prod
