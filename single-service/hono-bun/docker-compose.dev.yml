@@ -1,0 +1,22 @@
+name: app-dev
+services:
+  api:
+    container_name: app-api-dev
+    restart: unless-stopped
+    build:
+      context: ./app
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+      # host:container
+      - ./app:/app
+      - ./app/node_modules:/app/node_modules
+    ports:
+      #HOST_PORT:CONTAINER_PORT
+      - "4001:4001"
+    networks:
+      - backend_app_dev
+
+networks:
+  backend_app_dev:
+    name: backend_app_dev
